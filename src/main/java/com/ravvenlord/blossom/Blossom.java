@@ -72,28 +72,6 @@ public class Blossom extends JavaPlugin {
         setNameCommand.setTabCompleter(new SetNameTabCompletor(getServer()));
 
         getLogger().info("Enabled blossom");
-
-        Location loc = new Location(Bukkit.getWorld("world"), 0, 100, 0);
-        NamespacedKey key = new NamespacedKey(this, "my-key");
-
-        loc.getBlock().setType(Material.CHEST);
-        Chest chest = (Chest) loc.getBlock().getState();
-        chest.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-        chest.update();
-
-        Chest refetch = (Chest) loc.getBlock().getState();
-        Optional.ofNullable(refetch.getPersistentDataContainer().get(key, PersistentDataType.BYTE))
-                .ifPresent(b -> System.out.println("Found the value the container: " + b));
-        refetch.getPersistentDataContainer().remove(key);
-        refetch.update();
-
-        Chest refetch2 = (Chest) loc.getBlock().getState();
-        Optional.ofNullable(refetch2.getPersistentDataContainer().get(key, PersistentDataType.BYTE))
-                .ifPresentOrElse(b -> {
-                    System.out.println("Still found a " + b + " ??");
-                } , () -> {
-                    System.out.println("Could not find the byte wooo");
-                });
     }
 
     @Override
